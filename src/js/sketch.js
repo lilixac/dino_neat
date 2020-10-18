@@ -7,7 +7,7 @@ const TOTAL = 100;
 
 let config = {
 	model: [
-		{ nodeCount: 5, type: "input" },
+		{ nodeCount: 2, type: "input" },
 		{ nodeCount: 2, type: "output", activationfunc: activation.SOFTMAX },
 	],
 	mutationRate: 0.1,
@@ -39,39 +39,13 @@ function draw() {
 		obstacles.push(new Obstacle());
 	}
 
-	if (frameCount % 40 == 0) {
+	if (frameCount % 30 == 0) {
 		obstacles.push(new Obstacle());
-	}
-
-	if (frameCount % 30 == 0 && Math.random() * 10 < 0.4) {
-		animations.push(new Star());
-	}
-
-	if (frameCount % 30 == 0 && Math.random() * 10 < 1) {
-		coins.push(new Coin());
 	}
 
 	for (let c of characters) {
 		c.display();
 		c.move();
-	}
-
-	for (a of animations) {
-		a.display();
-		a.randomPosition();
-	}
-
-	for (c of coins) {
-		c.move();
-		c.display();
-
-		// for (char of characters) {
-		// 	if (char.collidesWithCoin(c)) {
-		// 		fill("#101357");
-		// 		text("Coin collected!", 600, 50);
-		// 		frameCount += 500;
-		// 	}
-		// }
 	}
 
 	for (let i = obstacles.length - 1; i >= 0; i--) {
@@ -87,16 +61,6 @@ function draw() {
 		for (let c of characters) {
 			if (c.collidesWith(o)) {
 				c.dead = true;
-				// noLoop();
-				// fill("#ffffff");
-				// text("Game Over", 600, 50);
-				// textSize(50);
-
-				// document.addEventListener("keypress", function onEvent(event) {
-				// 	if (event.key === " ") {
-				// 		window.location.reload();
-				// 	}
-				// });
 			}
 		}
 	}
@@ -132,16 +96,6 @@ function draw() {
 		neat.doGen();
 	}
 }
-
-// function keyPressed() {
-// 	if (key == " ") {
-// 		console.log(characters[1].closestObstacle(obstacles));
-// 		characters[2].jump();
-// 		characters[4].jump();
-// 		characters[5].jump();
-// 		characters[7].jump();
-// 	}
-// }
 
 class Character {
 	constructor() {
@@ -197,10 +151,6 @@ class Character {
 		let closest = this.closestObstacle(obstacles);
 		inputs[0] = map(closest.x, this.x, this.diameter, 0, 1);
 		inputs[1] = map(this.vy, -5, 5, 0, 1);
-		inputs[2] = map(this.gravity, -5, 5, 0, 1);
-		inputs[3] = map(closest.y, 0, 0, 0, 1);
-		inputs[4] = map(closest.y, 0, closest.obstacleWidth, 0, 1);
-		inputs[5] = map(100,0,0,0,1)
 		return inputs;
 	}
 
@@ -210,18 +160,6 @@ class Character {
 			obstacle.y,
 			obstacle.obstacleWidth,
 			100,
-			this.x,
-			this.y,
-			this.diameter
-		);
-	}
-
-	collidesWithCoin(coin) {
-		return collideRectCircle(
-			coin.x,
-			coin.y,
-			30,
-			30,
 			this.x,
 			this.y,
 			this.diameter
@@ -251,40 +189,5 @@ class Obstacle {
 		} else {
 			return false;
 		}
-	}
-}
-
-class Coin {
-	constructor() {
-		this.x = width;
-		this.y = random(90, 200);
-		this.diameter = 30;
-	}
-
-	move() {
-		this.x -= 16;
-	}
-
-	display() {
-		fill("#FFD700");
-		rect(this.x, this.y, this.diameter, this.diameter);
-	}
-}
-
-class Star {
-	constructor() {
-		this.x = width;
-		this.y = height - this.obstacleWidth * 2;
-		this.diameter = random(0, 10);
-	}
-
-	display() {
-		fill("#aaa9ad");
-		circle(this.xPosition, this.yPosition, this.diameter);
-	}
-
-	randomPosition() {
-		this.xPosition = Math.floor(Math.random() * 1300);
-		this.yPosition = 40 + Math.floor(Math.random() * 320);
 	}
 }
