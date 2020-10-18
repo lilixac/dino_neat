@@ -39,7 +39,7 @@ function draw() {
 		obstacles.push(new Obstacle());
 	}
 
-	if (frameCount % 30 == 0) {
+	if (frameCount % 40 == 0) {
 		obstacles.push(new Obstacle());
 	}
 
