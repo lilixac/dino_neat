@@ -1,7 +1,7 @@
 {
-  "name": "chrome_dinosaur_game",
+  "name": "Neat Dino",
   "version": "1.0.0",
-  "description": "Kaam chalau version of chrome dinosaur game",
+  "description": "Chrome dinosaur game with NEAT.",
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
@@ -10,7 +10,6 @@
   "author": "Newton Poudel",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1",
-    "neat_net-js": "^1.0.14"
+    "express": "^4.17.1"
   }
 }
