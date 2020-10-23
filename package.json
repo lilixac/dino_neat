@@ -1,5 +1,5 @@
 {
-  "name": "Neat Dino",
+  "name": "Neat_Dino",
   "version": "1.0.0",
   "description": "Chrome dinosaur game with NEAT.",
   "main": "index.js",
